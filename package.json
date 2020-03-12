@@ -38,8 +38,6 @@
     ]
   },
   "devDependencies": {
-    "@fortawesome/free-solid-svg-icons": "^5.12.1",
-    "@fortawesome/react-fontawesome": "^0.1.9",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.3",
     "react-router-dom": "^5.1.2",

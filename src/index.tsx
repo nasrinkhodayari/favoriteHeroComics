@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from 'react-redux';
-import Login from "./components/Login/index";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { store } from "./_helpers";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
-// import ItemsList from './components/ItemsList';
-// import ItemsList from './components/ItemDetail';
+
+const Login = React.lazy(() => import("./components/Login/index"));
+const ItemsList = React.lazy(() => import("./components/ItemsList/index"));
+const ItemsDetail = React.lazy(() => import("./components/ItemsDetail/index"));
 
 const routing = (
   <Provider store={store}>
@@ -17,8 +18,8 @@ const routing = (
         <Route path="/" component={Login} />
         <Route path="login" component={Login} />
         <Route path="logout" component={Login} />
-        {/* <Route path="/itemsList" component={ItemsList} />
-        <Route path="/itemDetail:/id" component={ItemDetail} /> */}
+        <Route path="/itemsList" component={ItemsList} />
+        <Route path="/itemDetail:/id" component={ItemsDetail} />
       </div>
     </Router>
     <ToastContainer />
