@@ -6,7 +6,6 @@ export const userService = {
 };
 
 function login(username: any, password: any) {
-  ;
   let result = users.filter((userItem: any) => {
     return userItem.user === username && userItem.password == password;
   });
@@ -20,5 +19,6 @@ function login(username: any, password: any) {
 }
 
 function logout() {
+  //  type: userConstants.LOGOUT
   localStorage.removeItem("user");
 }

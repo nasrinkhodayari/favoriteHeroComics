@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Login from "./components/Login/index";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { store } from "./_helpers";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 // import ItemsList from './components/ItemsList';
 // import ItemsList from './components/ItemDetail';
@@ -19,6 +21,7 @@ const routing = (
         <Route path="/itemDetail:/id" component={ItemDetail} /> */}
       </div>
     </Router>
+    <ToastContainer />
   </Provider>
 );
 ReactDOM.render(routing, document.getElementById("root"));

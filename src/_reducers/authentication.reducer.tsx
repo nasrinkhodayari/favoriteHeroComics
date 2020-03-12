@@ -12,7 +12,6 @@ export function authentication(
   state = initialState,
   action: { type: any; user: any }
 ) {
-  
   switch (action.type) {
     case userConstants.LOGIN_REQUEST:
       return {

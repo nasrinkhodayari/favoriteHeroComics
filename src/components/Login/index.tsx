@@ -6,8 +6,10 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import CardHeader from "@material-ui/core/CardHeader";
-import { connect } from "react-redux";
-import { userActions } from "../../_actions";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { userService } from "./api";
+import { userConstants } from "../../_constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,8 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-const Login = (props: any) => {
-  
+const Login = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +51,13 @@ const Login = (props: any) => {
   }, [username, password]);
 
   const handleLogin = () => {
-    props.login(username, password,mapState);
+    let result = userService.login(username, password);
+    if (result.length > 0) {
+      dispatch({ type: userConstants.LOGIN_SUCCESS, result });
+    } else {
+      dispatch({ type: userConstants.LOGIN_FAILURE, result });
+      toast.error(userConstants.LOGIN_FAILURE);
+    }
   };
 
   const handleKeyPress = (e: any) => {
@@ -103,14 +111,5 @@ const Login = (props: any) => {
     </React.Fragment>
   );
 };
-const mapState = (state: { authentication: { loggingIn: any } }) => {
-  const { loggingIn } = state.authentication;
-  return { loggingIn };
-};
 
-const actionCreators = {
-  login: userActions.login,
-  logout: userActions.logout
-};
-const connectedLoginPage = connect(mapState, actionCreators)(Login);
-export default connectedLoginPage;
+export default Login;
