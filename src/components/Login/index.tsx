@@ -6,7 +6,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import CardHeader from "@material-ui/core/CardHeader";
-const users = require("./mocks/users.json");
+import { connect } from "react-redux";
+import { userActions } from "../../_actions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,8 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
     loginBtn: {
       marginTop: theme.spacing(2),
       flexGrow: 1,
-      background:"#5cb53f",
-      color:"#fff"
+      background: "#5cb53f",
+      color: "#fff"
     },
     header: {
       textAlign: "center",
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-const Login = () => {
+const Login = (props: any) => {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -40,26 +41,18 @@ const Login = () => {
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
 
+
   useEffect(() => {
+    console.log(props.loggingIn);
     if (username.trim() && password.trim()) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
     }
-  }, [username, password]);
+  }, [username, password, props.loggingIn]);
 
   const handleLogin = () => {
-    let result = users.filter((userItem: any) => {
-      return userItem.user === username && userItem.password == password;
-    });
-    if (result.length > 0) {
-      setError(false);
-      setHelperText("Login Successfully");
-      console.log(result);
-    } else {
-      setError(true);
-      setHelperText("Incorrect username or password");
-    }
+    props.login(username, password);
   };
 
   const handleKeyPress = (e: any) => {
@@ -116,5 +109,14 @@ const Login = () => {
     </React.Fragment>
   );
 };
+const mapState = (state: { authentication: { loggingIn: any } }) => {
+  const { loggingIn } = state.authentication;
+  return { loggingIn };
+};
 
-export default Login;
+const actionCreators = {
+  login: userActions.login,
+  logout: userActions.logout
+};
+const connectedLoginPage = connect(mapState, actionCreators)(Login);
+export default connectedLoginPage;
