@@ -34,25 +34,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 const Login = (props: any) => {
+  
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [helperText, setHelperText] = useState("");
-  const [error, setError] = useState(false);
-
 
   useEffect(() => {
-    console.log(props.loggingIn);
     if (username.trim() && password.trim()) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
     }
-  }, [username, password, props.loggingIn]);
+  }, [username, password]);
 
   const handleLogin = () => {
-    props.login(username, password);
+    props.login(username, password,mapState);
   };
 
   const handleKeyPress = (e: any) => {
@@ -69,7 +66,6 @@ const Login = (props: any) => {
           <CardContent>
             <div>
               <TextField
-                error={error}
                 fullWidth
                 id="username"
                 type="text"
@@ -80,14 +76,12 @@ const Login = (props: any) => {
                 onKeyPress={e => handleKeyPress(e)}
               />
               <TextField
-                error={error}
                 fullWidth
                 id="password"
                 type="password"
                 label="Password"
                 placeholder="Password"
                 margin="normal"
-                helperText={helperText}
                 onChange={e => setPassword(e.target.value)}
                 onKeyPress={e => handleKeyPress(e)}
               />

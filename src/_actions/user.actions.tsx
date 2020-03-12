@@ -7,6 +7,16 @@ export const userActions = {
   logout
 };
 
+function request(user: { username: any }) {
+  return { type: userConstants.LOGIN_REQUEST, user };
+}
+function success(user: any) {
+  return { type: userConstants.LOGIN_SUCCESS, user };
+}
+function failure(error: any) {
+  debugger
+  return { type: userConstants.LOGIN_FAILURE, error };
+}
 function login(username: any, password: any) {
   return (
     dispatch: (arg0: {
@@ -21,23 +31,14 @@ function login(username: any, password: any) {
     if (result.length > 0) {
       dispatch(success(result));
       history.push("/");
-      console.log('ok')
+      console.log("ok");
     } else {
       dispatch(failure("error"));
       dispatch(alertActions.error("error"));
     }
   };
-
-  function request(user: { username: any }) {
-    return { type: userConstants.LOGIN_REQUEST, user };
-  }
-  function success(user: any) {
-    return { type: userConstants.LOGIN_SUCCESS, user };
-  }
-  function failure(error: any) {
-    return { type: userConstants.LOGIN_FAILURE, error };
-  }
 }
+
 
 function logout() {
   userService.logout();
