@@ -16,11 +16,9 @@ const routing = (
     <Router>
       <Suspense fallback={""}>
         <Switch>
-          <Route path="/" component={Login} />
-          <Route path="login" component={Login} />
-          <Route path="logout" component={Login} />
-          <Route path="/itemsList" component={ItemsList} />
-          <Route path="/itemDetail:/id" component={ItemsDetail} />
+          <Route exact path="/" component={Login} />
+          <Route path="/list" component={ItemsList} />
+          <Route path="/detail:/id" component={ItemsDetail} />
         </Switch>
       </Suspense>
     </Router>
