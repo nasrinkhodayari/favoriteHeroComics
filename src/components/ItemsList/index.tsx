@@ -16,18 +16,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 const ItemsList = () => {
   const classes = useStyles();
+  const comicsData = require("./mocks/comics.json");
   const [comics, setComics] = useState([]);
+  
   useEffect(() => {
-    listService
-      .getComics()
-      .then(response => {
-        setComics(response.data);
-      })
-      .catch(reason => {
-        console.error(reason);
-        toast.error(reason.message);
-      });
-  }, []);
+    setComics(comicsData.data.results);
+    // .getComics()
+    // .then(response => {
+    //   setComics(response.data);
+    // })
+    // .catch(reason => {
+    //   console.error(reason);
+    //   toast.error(reason.message);
+    // });
+  }, [comics]);
 
   return (
     <React.Fragment>
@@ -44,8 +46,8 @@ const ItemsList = () => {
             <Button color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
-        {comics.map(item => {
-          return <Item dataItem={item} />;
+        {comics.map((item: any) => {
+          return <Item dataItem={item} key={item.id}/>;
         })}
       </div>
     </React.Fragment>

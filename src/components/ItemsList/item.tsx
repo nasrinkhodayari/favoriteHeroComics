@@ -8,7 +8,9 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 345
+    maxWidth: 345,
+    display:'inline-block',
+    margin:'25px'
   },
   media: {
     height: 0,
@@ -16,13 +18,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Item(dataItem: any) {
-  console.log(dataItem);
+export default function Item(data: any) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <CardHeader
-        title="Shrimp and Chorizo Paella"
+        title={data.dataItem.title}
         subheader="September 14, 2016"
       />
       <CardMedia
@@ -32,9 +33,7 @@ export default function Item(dataItem: any) {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+        {data.dataItem.description}
         </Typography>
       </CardContent>
     </Card>
