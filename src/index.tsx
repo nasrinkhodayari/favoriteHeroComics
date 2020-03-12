@@ -9,7 +9,6 @@ import "./index.css";
 
 const Login = React.lazy(() => import("./components/Login/index"));
 const ItemsList = React.lazy(() => import("./components/ItemsList/index"));
-const ItemsDetail = React.lazy(() => import("./components/ItemsDetail/index"));
 
 const routing = (
   <Provider store={store}>
@@ -18,7 +17,6 @@ const routing = (
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/list" component={ItemsList} />
-          <Route path="/detail:/id" component={ItemsDetail} />
         </Switch>
       </Suspense>
     </Router>

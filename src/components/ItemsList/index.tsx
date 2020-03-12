@@ -1,14 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Button from "@material-ui/core/Button";
+import Item from "./item";
 import listService from "./api";
+import { toast } from "react-toastify";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    flexGrow: 1
+  }
+}));
 const ItemsList = () => {
-  useEffect(() => {}, []);
+  const classes = useStyles();
+  const [comics, setComics] = useState([]);
+  useEffect(() => {
+    listService
+      .getComics()
+      .then(response => {
+        setComics(response.data);
+      })
+      .catch(reason => {
+        console.error(reason);
+        toast.error(reason.message);
+      });
+  }, []);
 
   return (
     <React.Fragment>
-      <div>Hi :)</div>
+      {/* <Loader
+        type="Puff"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000} //3 secs
+      /> */}
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Button color="inherit">Logout</Button>
+          </Toolbar>
+        </AppBar>
+        {comics.map(item => {
+          return <Item dataItem={item} />;
+        })}
+      </div>
     </React.Fragment>
   );
 };
