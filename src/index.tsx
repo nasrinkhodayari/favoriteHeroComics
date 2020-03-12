@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
-import { Provider } from 'react-redux';
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { store } from "./_helpers";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
@@ -14,13 +14,15 @@ const ItemsDetail = React.lazy(() => import("./components/ItemsDetail/index"));
 const routing = (
   <Provider store={store}>
     <Router>
-      <div>
-        <Route path="/" component={Login} />
-        <Route path="login" component={Login} />
-        <Route path="logout" component={Login} />
-        <Route path="/itemsList" component={ItemsList} />
-        <Route path="/itemDetail:/id" component={ItemsDetail} />
-      </div>
+      <Suspense fallback={""}>
+        <Switch>
+          <Route path="/" component={Login} />
+          <Route path="login" component={Login} />
+          <Route path="logout" component={Login} />
+          <Route path="/itemsList" component={ItemsList} />
+          <Route path="/itemDetail:/id" component={ItemsDetail} />
+        </Switch>
+      </Suspense>
     </Router>
     <ToastContainer />
   </Provider>
