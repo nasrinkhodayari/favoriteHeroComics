@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Item from "./item";
 import listService from "./api";
 import { toast } from "react-toastify";
+import "./base.scss";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -18,7 +19,7 @@ const ItemsList = () => {
   const classes = useStyles();
   const comicsData = require("./mocks/comics.json");
   const [comics, setComics] = useState([]);
-  
+
   useEffect(() => {
     setComics(comicsData.data.results);
     // .getComics()
@@ -32,25 +33,27 @@ const ItemsList = () => {
   }, [comics]);
 
   return (
-    <React.Fragment>
-      {/* <Loader
+    <div className="comics-container">
+      <React.Fragment>
+        {/* <Loader
         type="Puff"
         color="#00BFFF"
         height={100}
         width={100}
         timeout={3000} //3 secs
       /> */}
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Button color="inherit">Logout</Button>
-          </Toolbar>
-        </AppBar>
-        {comics.map((item: any) => {
-          return <Item dataItem={item} key={item.id}/>;
-        })}
-      </div>
-    </React.Fragment>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <Button color="inherit">Logout</Button>
+            </Toolbar>
+          </AppBar>
+          {comics.map((item: any) => {
+            return <Item dataItem={item} key={item.id} />;
+          })}
+        </div>
+      </React.Fragment>
+    </div>
   );
 };
 
