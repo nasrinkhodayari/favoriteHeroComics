@@ -20,6 +20,9 @@ Responsive Web Design,
 React Router,
 redux-saga,
 
+### `live preview`
+https://peaceful-beach-40422.herokuapp.com/
+
 
 
 
