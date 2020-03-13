@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 345,
     display: "inline-block",
-    margin: "25px"
+    margin: "25px",
+    border: '1px #80808038 solid'
   },
   media: {
     height: 0,
@@ -24,7 +25,7 @@ export default function Item(data: any) {
   const classes = useStyles();
   return (
     <Card className={classes.root} onClick={()=> window.open(`https://www.marvel.com/comics/issue/${data.dataItem.id}/${data.dataItem.title}`, "_blank")}>
-      <CardHeader title={data.dataItem.title} subheader={data.dataItem.format} />
+      <CardHeader className="header" title={data.dataItem.title} subheader={data.dataItem.format} />
       <CardMedia
         className={classes.media}
         image={data.dataItem.thumbnail.path}

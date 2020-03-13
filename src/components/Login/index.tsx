@@ -54,6 +54,7 @@ const Login = () => {
     let result = userService.login(username, password);
     if (result.length > 0) {
       dispatch({ type: userConstants.LOGIN_SUCCESS, result });
+      window.location.href = '/list';
     } else {
       dispatch({ type: userConstants.LOGIN_FAILURE, result });
       toast.error(userConstants.LOGIN_FAILURE);

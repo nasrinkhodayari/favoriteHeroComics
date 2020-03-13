@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,6 +7,8 @@ import Button from "@material-ui/core/Button";
 import Item from "./item";
 import listService from "./api";
 import { toast } from "react-toastify";
+import Loader from "react-loader-spinner";
+import { store } from "../../_helpers/store";
 import "./base.scss";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -16,11 +17,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 const ItemsList = () => {
+  const userStatus = store.getState();
+  const authentication = userStatus.authentication ? JSON.stringify(userStatus.authentication) : '{}';
   const classes = useStyles();
   const comicsData = require("./mocks/comics.json");
   const [comics, setComics] = useState([]);
 
   useEffect(() => {
+    if (!((JSON.parse(authentication)).loggedIn)) {
+      window.location.href = "/";
+      return;
+    }
     setComics(comicsData.data.results);
     // .getComics()
     // .then(response => {
@@ -44,7 +51,7 @@ const ItemsList = () => {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <Button color="inherit">Logout</Button>
+            <Button color="inherit" onClick={()=> {localStorage.clear();window.location.href="/"}}>Logout</Button>
           </Toolbar>
         </AppBar>
         <div className="comics-container">
