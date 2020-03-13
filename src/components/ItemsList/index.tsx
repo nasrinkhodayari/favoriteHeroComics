@@ -33,27 +33,27 @@ const ItemsList = () => {
   }, [comics]);
 
   return (
-    <div className="comics-container">
-      <React.Fragment>
-        {/* <Loader
+    <React.Fragment>
+      {/* <Loader
         type="Puff"
         color="#00BFFF"
         height={100}
         width={100}
         timeout={3000} //3 secs
       /> */}
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <Button color="inherit">Logout</Button>
-            </Toolbar>
-          </AppBar>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Button color="inherit">Logout</Button>
+          </Toolbar>
+        </AppBar>
+        <div className="comics-container">
           {comics.map((item: any) => {
             return <Item dataItem={item} key={item.id} />;
           })}
         </div>
-      </React.Fragment>
-    </div>
+      </div>
+    </React.Fragment>
   );
 };
 

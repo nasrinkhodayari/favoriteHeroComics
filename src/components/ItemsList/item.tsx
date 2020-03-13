@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
+    cursor:'pointer',
     paddingTop: "56.25%" // 16:9
   }
 }));
@@ -22,11 +23,11 @@ const useStyles = makeStyles(theme => ({
 export default function Item(data: any) {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <CardHeader title={data.dataItem.title} subheader="September 14, 2016" />
+    <Card className={classes.root} onClick={()=> window.open(`https://www.marvel.com/comics/issue/${data.dataItem.id}/${data.dataItem.title}`, "_blank")}>
+      <CardHeader title={data.dataItem.title} subheader={data.dataItem.format} />
       <CardMedia
         className={classes.media}
-        image="/static/images/cards/paella.jpg"
+        image={data.dataItem.thumbnail.path}
         title="Paella dish"
       />
       <CardContent>
